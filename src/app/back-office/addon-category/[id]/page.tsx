@@ -20,7 +20,7 @@ export default async function AddonCategoryUpdatePage({ params }: Props) {
   });
   const menus = await prisma.menu.findMany();
   const menuIds = (
-    await prisma.menuAddonCategories.findMany({
+    await prisma.menusAddonCategories.findMany({
       where: { addonCategoryId: Number(id) },
     })
   ).map((item) => item.menuId) as number[];

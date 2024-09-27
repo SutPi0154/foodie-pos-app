@@ -20,7 +20,7 @@ export async function updateAddonCategory(formData: FormData) {
           .split(",")
           .map((menuId) => Number(menuId)) as number[]);
   const oldMenuIds = (
-    await prisma.menuAddonCategories.findMany({
+    await prisma.menusAddonCategories.findMany({
       where: { addonCategoryId: id },
     })
   ).map((item) => item.menuId);
@@ -30,10 +30,10 @@ export async function updateAddonCategory(formData: FormData) {
 
   const data = menuIds.map((item) => ({ addonCategoryId: id, menuId: item }));
   if (!isSame) {
-    await prisma.menuAddonCategories.deleteMany({
+    await prisma.menusAddonCategories.deleteMany({
       where: { addonCategoryId: id },
     });
-    await prisma.menuAddonCategories.createMany({ data });
+    await prisma.menusAddonCategories.createMany({ data });
   }
   await prisma.addonCategory.update({
     data: { name, isRequired },
@@ -61,14 +61,14 @@ export async function createNewAddonCategory(formData: FormData) {
       addonCategoryId: addonCategory.id,
       menuId: item,
     }));
-    await prisma.menuAddonCategories.createMany({ data });
+    await prisma.menusAddonCategories.createMany({ data });
     redirect("/back-office/addon-category");
   }
 }
 
 export async function deleteAddonCategory(formData: FormData) {
   const id = Number(formData.get("addonCategoryId"));
-  await prisma.menuAddonCategories.deleteMany({
+  await prisma.menusAddonCategories.deleteMany({
     where: { addonCategoryId: id },
   });
   await prisma.addonCategory.delete({ where: { id } });

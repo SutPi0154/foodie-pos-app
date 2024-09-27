@@ -8,29 +8,29 @@ datasource db {
 }
 
 model MenuCategory {
-  id               Int                @id @default(autoincrement())
+  id               Int                   @id @default(autoincrement())
   name             String
-  companyId        Int
-  isArchived       Boolean            @default(false)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  menuCategoryMenu MenuCategoryMenu[]
+  isArchived       Boolean               @default(false)
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  menuCategoryMenu MenuCategoriesMenus[]
 }
 
 model Menu {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  price             Int                 @default(0)
-  description       String?
-  assetUrl          String?
-  isArchived        Boolean             @default(false)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  menuAddonCategory MenuAddonCategory[]
-  menuCategoryMenu  MenuCategoryMenu[]
+  id                  Int                    @id @default(autoincrement())
+  name                String
+  price               Int                    @default(0)
+  description         String?
+  isAvailable         Boolean                @default(true)
+  assetUrl            String?
+  isArchived          Boolean                @default(false)
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+  menuAddonCategories MenusAddonCategories[]
+  menuCategoryMenu    MenuCategoriesMenus[]
 }
 
-model MenuCategoryMenu {
+model MenuCategoriesMenus {
   id             Int          @id @default(autoincrement())
   menuCategoryId Int
   menuId         Int
@@ -42,17 +42,17 @@ model MenuCategoryMenu {
 }
 
 model AddonCategory {
-  id                Int                 @id @default(autoincrement())
+  id                Int                    @id @default(autoincrement())
   name              String
-  isRequired        Boolean             @default(true)
-  isArchived        Boolean             @default(false)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  isRequired        Boolean                @default(true)
+  isArchived        Boolean                @default(false)
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
   addons            Addon[]
-  menuAddonCategory MenuAddonCategory[]
+  menuAddonCategory MenusAddonCategories[]
 }
 
-model MenuAddonCategory {
+model MenusAddonCategories {
   id              Int           @id @default(autoincrement())
   menuId          Int
   addonCategoryId Int
@@ -68,7 +68,7 @@ model Addon {
   name            String
   price           Int           @default(0)
   addonCategoryId Int
-  isArchived      Boolean       @default(false)
+  isAvailable     Boolean       @default(true)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   addonCategory   AddonCategory @relation(fields: [addonCategoryId], references: [id])

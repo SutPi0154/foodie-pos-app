@@ -69,7 +69,7 @@ export async function updateMenu(formData: FormData) {
 export async function deleteMenu(formData: FormData) {
   const id = Number(formData.get("menuId"));
   await prisma.menuCategoriesMenus.deleteMany({ where: { menuId: id } });
-  await prisma.menuAddonCategories.deleteMany({ where: { menuId: id } });
+  await prisma.menusAddonCategories.deleteMany({ where: { menuId: id } });
   await prisma.menu.delete({ where: { id } });
   return redirect("/back-office/menu");
 }
