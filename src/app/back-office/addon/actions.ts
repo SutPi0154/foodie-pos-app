@@ -3,12 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
-export async function getAddons() {
-  const addons = await prisma.addon.findMany();
-  if (addons) return redirect("/back-office/addon");
-  return addons;
-}
-
 export async function createAddon(formData: FormData) {
   const name = formData.get("name") as string;
   const price = Number(formData.get("price"));

@@ -1,12 +1,11 @@
 import ItemCard from "@/components/ItemCard";
-import { getCompanyAddonCategory } from "@/lib/actions";
-import ClassIcon from "@mui/icons-material/Class";
+import { getCompanyTable } from "@/lib/actions";
+import TableBarIcon from "@mui/icons-material/TableBar";
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
 
-const AddonCategoryPage = async () => {
-  const addonCategories = await getCompanyAddonCategory();
-
+const TablePage = async () => {
+  const tables = await getCompanyTable();
   return (
     <>
       <Box
@@ -17,19 +16,19 @@ const AddonCategoryPage = async () => {
         }}
       >
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-          {addonCategories.map((addonCategory) => {
+          {tables.map((table) => {
             return (
               <ItemCard
-                key={addonCategory.id}
-                href={`/back-office/addon-category/${addonCategory.id}`}
-                icon={<ClassIcon fontSize="large" />}
-                title={addonCategory.name}
+                key={table.id}
+                href={`/back-office/table/${table.id}`}
+                icon={<TableBarIcon fontSize="large" />}
+                title={table.name}
                 isAvailable
               />
             );
           })}
         </Box>
-        <Link href={`addon-category/new-addon-category`}>
+        <Link href={`table/new-table`}>
           <Button variant="contained">Create</Button>
         </Link>
       </Box>
@@ -37,4 +36,4 @@ const AddonCategoryPage = async () => {
   );
 };
 
-export default AddonCategoryPage;
+export default TablePage;

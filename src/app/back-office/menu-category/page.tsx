@@ -1,11 +1,14 @@
 import ItemCard from "@/components/ItemCard";
+import { GetCompanyId } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import CategoryIcon from "@mui/icons-material/Category";
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
 
 const MenuCategoryPage = async () => {
-  const menuCategories = await prisma.menuCategory.findMany();
+  const menuCategories = await prisma.menuCategory.findMany({
+    where: { companyId: await GetCompanyId() },
+  });
 
   return (
     <>

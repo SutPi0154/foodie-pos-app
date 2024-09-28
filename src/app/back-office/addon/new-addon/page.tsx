@@ -1,7 +1,7 @@
 "use server";
 
 import SingleSelect from "@/components/SingleSelect";
-import { prisma } from "@/lib/prisma";
+import { getCompanyAddonCategory } from "@/lib/actions";
 import {
   Box,
   Button,
@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { createAddon } from "../actions";
 
-const NewAddon = async () => {
-  const addonCategories = await prisma.addonCategory.findMany();
+const NewAddonPage = async () => {
+  const addonCategories = await getCompanyAddonCategory();
   return (
     <>
       <Box
@@ -52,4 +52,4 @@ const NewAddon = async () => {
   );
 };
 
-export default NewAddon;
+export default NewAddonPage;

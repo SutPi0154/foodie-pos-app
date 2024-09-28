@@ -1,4 +1,5 @@
 import MultiSelect from "@/components/MultiSelect";
+import { getCompanyMenuCategory } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import {
   Box,
@@ -16,7 +17,7 @@ interface Props {
 const MenuUpdatePage = async ({ params }: Props) => {
   const { id } = params;
   const menu = await getMenu(Number(id));
-  const menuCategories = await prisma.menuCategory.findMany();
+  const menuCategories = await getCompanyMenuCategory();
   const menuCategoryIds = (
     (await prisma.menuCategoriesMenus.findMany({
       where: { menuId: Number(id) },

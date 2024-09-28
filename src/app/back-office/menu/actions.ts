@@ -3,12 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
-export async function getMenus() {
-  const menus = await prisma.menu.findMany();
-  if (menus) return redirect("/back-office/menu");
-  return menus;
-}
-
 export async function getMenu(id: number) {
   const menu = await prisma.menu.findFirst({ where: { id } });
   if (!menu) return redirect("/back-office/menu");

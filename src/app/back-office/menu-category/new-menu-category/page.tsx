@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { createNewMenuCategory } from "../actions";
 
-const NewMenuCategory = () => {
+const NewMenuCategoryPage = () => {
   return (
     <>
       <Box
@@ -30,4 +30,4 @@ const NewMenuCategory = () => {
   );
 };
 
-export default NewMenuCategory;
+export default NewMenuCategoryPage;

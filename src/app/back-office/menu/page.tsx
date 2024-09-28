@@ -1,12 +1,22 @@
 "use server";
 
 import MenuCard from "@/components/MenuCard";
+import { getCompanyMenuCategory } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
 
 const MenusPage = async () => {
-  const menus = await prisma.menu.findMany();
+  const menuCategories = await getCompanyMenuCategory();
+  const menuCategoryIds = menuCategories.map((menuCategory) => menuCategory.id);
+  console.log(menuCategoryIds, "menucateogyrrid");
+  const menuIds = (
+    await prisma.menuCategoriesMenus.findMany({
+      where: { menuCategoryId: { in: menuCategoryIds } },
+    })
+  ).map((item) => item.menuId);
+  console.log(menuIds);
+  const menus = await prisma.menu.findMany({ where: { id: { in: menuIds } } });
 
   return (
     <>

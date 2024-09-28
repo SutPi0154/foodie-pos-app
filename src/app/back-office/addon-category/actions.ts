@@ -3,10 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
-export async function getAddonCategories() {
-  return await prisma.addonCategory.findMany();
-}
-
 export async function updateAddonCategory(formData: FormData) {
   const id = Number(formData.get("addonCategoryId"));
   const name = formData.get("addonCategoryName") as string;

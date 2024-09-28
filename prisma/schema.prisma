@@ -14,6 +14,8 @@ model MenuCategory {
   createdAt        DateTime              @default(now())
   updatedAt        DateTime              @updatedAt
   menuCategoryMenu MenuCategoriesMenus[]
+  companyId        Int
+  company          Company               @relation(fields: [companyId], references: [id])
 }
 
 model Menu {
@@ -72,4 +74,35 @@ model Addon {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   addonCategory   AddonCategory @relation(fields: [addonCategoryId], references: [id])
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model Company {
+  id           Int            @id @default(autoincrement())
+  name         String
+  user         User[]
+  location     Location[]
+  menucategory MenuCategory[]
+}
+
+model Location {
+  id        Int     @id @default(autoincrement())
+  name      String
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+  table     Table[]
+}
+
+model Table {
+  id         Int      @id @default(autoincrement())
+  name       String
+  locationId Int
+  location   Location @relation(fields: [locationId], references: [id])
 }

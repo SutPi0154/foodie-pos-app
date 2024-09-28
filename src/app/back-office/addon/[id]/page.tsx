@@ -1,4 +1,5 @@
 import SingleSelect from "@/components/SingleSelect";
+import { getCompanyAddonCategory } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import {
   Box,
@@ -16,7 +17,7 @@ const AddonUpdatePage = async ({ params }: Props) => {
   const { id } = params;
   const addon = await prisma.addon.findFirst({ where: { id: Number(id) } });
   const addonCategoryId = addon?.addonCategoryId;
-  const addonCategories = await prisma.addonCategory.findMany();
+  const addonCategories = await getCompanyAddonCategory();
   return (
     <>
       <Box

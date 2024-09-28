@@ -1,11 +1,17 @@
 import ItemCard from "@/components/ItemCard";
+import { getCompanyAddonCategory } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import EggIcon from "@mui/icons-material/Egg";
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
 
 const AddonPage = async () => {
-  const addons = await prisma.addon.findMany();
+  const addonCategoryIds = (await getCompanyAddonCategory()).map(
+    (item) => item.id
+  );
+  const addons = await prisma.addon.findMany({
+    where: { addonCategoryId: { in: addonCategoryIds } },
+  });
 
   return (
     <>

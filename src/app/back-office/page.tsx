@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 
-const Order = async () => {
+const OrderPage = async () => {
   const session = await getServerSession();
   console.log("session", session);
 
@@ -11,4 +11,4 @@ const Order = async () => {
   );
 };
 
-export default Order;
+export default OrderPage;

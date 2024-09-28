@@ -1,5 +1,5 @@
 import MultiSelect from "@/components/MultiSelect";
-import { prisma } from "@/lib/prisma";
+import { getCompanyMenu } from "@/lib/actions";
 import {
   Box,
   Button,
@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { createNewAddonCategory } from "../actions";
 
-const NewAddonCategory = async () => {
-  const menus = await prisma.menu.findMany();
+const NewAddonCategoryPage = async () => {
+  const menus = await getCompanyMenu();
   return (
     <>
       <Box
@@ -47,4 +47,4 @@ const NewAddonCategory = async () => {
   );
 };
 
-export default NewAddonCategory;
+export default NewAddonCategoryPage;

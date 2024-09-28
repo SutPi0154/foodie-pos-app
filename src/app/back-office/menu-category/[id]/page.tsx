@@ -11,7 +11,6 @@ export default async function MenuCategoryUpdatePage({ params }: Props) {
   const menuCategory = await prisma.menuCategory.findFirst({
     where: { id: Number(id) },
   });
-  const menus = await prisma.menu.findMany();
 
   return (
     <>

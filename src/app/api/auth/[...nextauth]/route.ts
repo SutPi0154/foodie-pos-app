@@ -1,7 +1,12 @@
 import { config } from "@/config";
-import NextAuth from "next-auth";
+import { createDefaultData } from "@/lib/actions";
+import { prisma } from "@/lib/prisma";
+import NextAuth, { User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
-
+interface Props {
+  user: User | AdapterUser;
+}
 export const authOptions = {
   providers: [
     GoogleProvider({
@@ -11,6 +16,17 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/auth/sign-in",
+  },
+  callbacks: {
+    async signIn({ user }: Props) {
+      const userFromDb = await prisma.user.findFirst({
+        where: { email: user.email as string },
+      });
+      if (!userFromDb) {
+        await createDefaultData(user);
+      }
+      return true;
+    },
   },
 };
 

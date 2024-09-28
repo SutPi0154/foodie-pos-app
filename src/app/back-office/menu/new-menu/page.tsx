@@ -1,5 +1,6 @@
 "use client";
 
+import { getCompanyMenuCategory } from "@/lib/actions";
 import {
   Box,
   Button,
@@ -9,13 +10,12 @@ import {
 } from "@mui/material";
 import { MenuCategory } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { getMenuCategories } from "../../menu-category/actions";
 import { createMenu } from "../actions";
 
-const NewMenu = () => {
+const NewMenuPage = () => {
   const [menuCategories, setMenuCategories] = useState<MenuCategory[]>([]);
   const handleGetMenuCategories = async () => {
-    const menuCategories = await getMenuCategories();
+    const menuCategories = await getCompanyMenuCategory();
     setMenuCategories(menuCategories);
   };
   useEffect(() => {
@@ -88,4 +88,4 @@ const NewMenu = () => {
   );
 };
 
-export default NewMenu;
+export default NewMenuPage;

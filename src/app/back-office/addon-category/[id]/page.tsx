@@ -1,4 +1,5 @@
 import MultiSelect from "@/components/MultiSelect";
+import { getCompanyMenu } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import {
   Box,
@@ -18,7 +19,7 @@ export default async function AddonCategoryUpdatePage({ params }: Props) {
   const addonCategory = await prisma.addonCategory.findFirst({
     where: { id: Number(id) },
   });
-  const menus = await prisma.menu.findMany();
+  const menus = await getCompanyMenu();
   const menuIds = (
     await prisma.menusAddonCategories.findMany({
       where: { addonCategoryId: Number(id) },
